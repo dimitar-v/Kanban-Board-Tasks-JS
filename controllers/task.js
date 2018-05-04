@@ -25,10 +25,24 @@ module.exports = {
     editGet: (req, res) => {
         let id = req.params.id;
 
-
        Task.findById(id).then(task => res.render('task/edit', task.dataValues));
     },
     editPost: (req, res) => {
-        // TODO: Implement me...
-    }
+        let id = req.params.id;
+        let args = req.body;
+
+        Task.findById(id)
+            .then(task => task.updateAttributes(args).then(() => res.redirect('/')));
+    },
+    //deleteGet: (req, res) => {
+    //    let id = req.params.id;
+    //
+    //    Task.findById(id).then(task => res.render('task/delete', task.dataValues));
+    //},
+    //deletePost: (req, res) => {
+    //    let id = req.params.id;
+    //
+    //    Task.findById(id)
+    //        .then(task => task.destroy().then(() => res.redirect('/')));
+    //}
 };
